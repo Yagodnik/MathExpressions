@@ -2,6 +2,7 @@ from operators import *
 from function import *
 
 
+# https://en.wikipedia.org/wiki/Reverse_Polish_notation
 class RPNExpression:
     def __init__(self):
         self.expression = []
