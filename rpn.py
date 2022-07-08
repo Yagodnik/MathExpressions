@@ -2,7 +2,7 @@ from operators import *
 from function import *
 
 
-# https://en.wikipedia.org/wiki/Reverse_Polish_notation
+# https://stackoverflow.com/questions/40328938/how-to-evaluate-reverse-polish-notation-using-stacks
 class RPNExpression:
     def __init__(self):
         self.expression = []
