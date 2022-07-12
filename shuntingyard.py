@@ -51,9 +51,10 @@ class ShuntingYard:
                         self.output_queue.append(self.operator_stack[0])
                         self.operator_stack.pop(0)
 
-                    if isinstance(self.operator_stack[0], Function):
-                        self.output_queue.append(self.operator_stack[0])
-                        self.operator_stack.pop(0)
+                    if len(self.operator_stack) > 0:
+                        if isinstance(self.operator_stack[0], Function):
+                            self.output_queue.append(self.operator_stack[0])
+                            self.operator_stack.pop(0)
 
         while len(self.operator_stack) > 0:
             self.output_queue.append(self.operator_stack[0])

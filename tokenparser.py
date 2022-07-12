@@ -12,11 +12,12 @@ SPECIAL_SYMBOL = 5
 # TODO: add float and negative numbers support
 class TokenParser:
     def __init__(self):
-        self.nums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        self.nums = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
         self.operators = [pow_sign, fac_sign, mul_sign, div_sign, plus_sign, minus_sign]
         self.parentheses = ["(", ")", "|", "|"]
         self.functions = functions
         self.special_symbols = [","]
+        self.last_operator = False
 
         self.token = None
         self.expression = ""
@@ -49,6 +50,7 @@ class TokenParser:
     def parse_operator(self):
         self.tokens.append((OPERATOR, symbol_to_operator(self.symbol)))
         self.index += 1
+        self.last_operator = True
 
     def parse_parentheses(self):
         self.tokens.append((PARENTHESES, self.symbol))
@@ -96,20 +98,34 @@ class TokenParser:
                 break
 
             self.symbol = self.expression[self.index]
+
             if self.nums.__contains__(self.symbol):
                 self.parse_number()
+                self.last_operator = False
                 continue
             elif contains_operator(self.operators, self.symbol):
+                if not self.last_operator:
+                    next_symbol = self.expression[self.index + 1]
+
+                    if self.nums.__contains__(next_symbol):
+                        self.parse_number()
+                        self.last_operator = False
+                        continue
+
                 self.parse_operator()
+                self.last_operator = False
                 continue
             elif self.parentheses.__contains__(self.symbol):
                 self.parse_parentheses();
+                self.last_operator = False
                 continue
             elif self.special_symbols.__contains__(self.symbol):
                 self.parse_special_symbol()
+                self.last_operator = False
                 continue
             else:
                 self.parse_function()
+                self.last_operator = False
                 continue
 
             self.index += 1

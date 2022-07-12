@@ -56,4 +56,3 @@ class RPNExpression:
             self.index += 1
 
         return self.stack[0]
-
