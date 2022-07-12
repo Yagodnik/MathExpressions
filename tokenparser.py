@@ -62,9 +62,11 @@ class TokenParser:
 
     def parse_function(self):
         token = ""
+        is_function = False
 
         for func in self.functions:
             if func[0] == self.symbol:
+                is_function = True
                 token = self.symbol
                 token_index = 1
                 local_index = self.index
@@ -85,12 +87,26 @@ class TokenParser:
                         break
 
             if token != "":
+                function_name = find_function_by_name(self.functions, token)
+
+                if function_name is None:
+                    print(f"Unknown function called: '{function_name}'")
+
                 self.index = local_index
-                self.tokens.append((FUNCTION, find_function_by_name(self.functions, token)))
+                self.tokens.append((FUNCTION, function_name))
                 break
 
         if token == "":
-            self.index += 1
+            if is_function:
+                name = ""
+
+                while self.expression[self.index] != "(":
+                    name += self.expression[self.index]
+                    self.index += 1
+
+                print(f"Unknown function called: '{name}'!")
+            else:
+                self.index += 1
 
     def parse_tokens(self):
         while True:
@@ -104,19 +120,20 @@ class TokenParser:
                 self.last_operator = False
                 continue
             elif contains_operator(self.operators, self.symbol):
-                if not self.last_operator:
-                    next_symbol = self.expression[self.index + 1]
+                if not self.last_operator and not isinstance(self.symbol, Operator):
+                    if self.index < self.expression_length:
+                        next_symbol = self.expression[self.index + 1]
 
-                    if self.nums.__contains__(next_symbol):
-                        self.parse_number()
-                        self.last_operator = False
-                        continue
+                        if self.nums.__contains__(next_symbol):
+                            self.parse_number()
+                            self.last_operator = False
+                            continue
 
                 self.parse_operator()
                 self.last_operator = False
                 continue
             elif self.parentheses.__contains__(self.symbol):
-                self.parse_parentheses();
+                self.parse_parentheses()
                 self.last_operator = False
                 continue
             elif self.special_symbols.__contains__(self.symbol):

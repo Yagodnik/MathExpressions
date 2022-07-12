@@ -43,6 +43,10 @@ class ShuntingYard:
                     self.operator_stack.insert(0, value)
                 elif value == ")":
                     while True:
+                        if len(self.operator_stack) == 0:
+                            print("Parentheses mismatch!")
+                            exit(0)
+
                         if not isinstance(self.operator_stack[0], Operator):
                             if self.operator_stack[0] == "(":
                                 self.operator_stack.pop(0)
@@ -52,11 +56,17 @@ class ShuntingYard:
                         self.operator_stack.pop(0)
 
                     if len(self.operator_stack) > 0:
+                        if self.operator_stack[0] is str and self.operator_stack[0] == "(":
+                            self.operator_stack.pop(0)
+
                         if isinstance(self.operator_stack[0], Function):
                             self.output_queue.append(self.operator_stack[0])
                             self.operator_stack.pop(0)
 
         while len(self.operator_stack) > 0:
+            if self.operator_stack[0] is str and (self.operator_stack[0] == "(" or self.operator_stack[0] == ")"):
+                print("Parentheses mismatch!")
+                exit(0)
             self.output_queue.append(self.operator_stack[0])
             self.operator_stack.pop(0)
 

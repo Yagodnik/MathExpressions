@@ -47,6 +47,10 @@ class RPNExpression:
                     y = float(self.stack.pop(-1))
                     self.stack.append(y ** x)
 
+                if item.symbol == "!":
+                    x = float(self.stack.pop(-1))
+                    self.stack.append(math.factorial(x))
+
             elif isinstance(item, Function):
                 x = float(self.stack.pop(-1))
                 self.stack.append(item(x))

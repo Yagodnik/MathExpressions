@@ -46,6 +46,12 @@ def symbol_to_operator(symbol):
         return div_sign
     elif symbol == "^":
         return pow_sign
+    elif symbol == "!":
+        return fac_sign
+    else:
+        print(f"Unknown operator {symbol}")
+
+    return None
 
 
 if __name__ == "__main__":
