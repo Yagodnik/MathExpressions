@@ -7,7 +7,7 @@ from rpn import *
 # TODO: fix bug with mismatched brackets checking
 
 if __name__ == '__main__':
-    expression = "sinh(ln(2 ^ 3))"
+    expression = "cbrt(27.5)"
 
     parser = TokenParser()
     parser.set_expression(expression)

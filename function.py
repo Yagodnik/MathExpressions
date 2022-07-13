@@ -40,16 +40,16 @@ def natural_log(x):
 
 
 def arcsin(x):
-    if not -math.pi / 2 <= x <= math.pi / 2:
-        print(f"Invalid argument for arcsin!\nValue is not in range -pi/2 <= {x} <= pi/2 !")
+    if not -1 <= x <= 1:
+        print(f"Invalid argument for arcsin!\nValue is not in range -1 <= {x} <= 1 !")
         exit(0)
 
     return math.asin(x)
 
 
 def arccos(x):
-    if not -math.pi / 2 <= x <= math.pi / 2:
-        print(f"Invalid argument for arccos!\nValue is not in range -pi/2 <= {x} <= pi/2 !")
+    if not -1 <= x <= 1:
+        print(f"Invalid argument for arccos!\nValue is not in range -1 <= {x} <= 1 !")
         exit(0)
 
     return math.acos(x)
@@ -62,11 +62,25 @@ def sign(x):
         return -1
 
 
+def sqrt(x):
+    if x < 0:
+        print(f"Invalid argument for square root!\n{x} < 0 !")
+        exit(0)
+
+    return math.sqrt(x)
+
+
+def cbrt(x):
+    return x ** (1 / 3)
+
+
 functions = [
     Function("arcsin", arcsin),
     Function("arccos", arccos),
     Function("arctan", math.atan),
     Function("sign", sign),
+    Function("sqrt", sqrt),
+    Function("cbrt", cbrt),
     Function("sinh", math.sinh),
     Function("cosh", math.cosh),
     Function("tanh", math.tanh),
