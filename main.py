@@ -2,37 +2,16 @@ from shuntingyard import *
 from rpn import *
 
 
-# TODO: fix bug with mismatched brackets checking
-
-
-def parse(exp):
-    parser = TokenParser()
-    parser.set_expression(exp)
-    tokens = parser.parse_tokens()
-
-    print(f"Parsing {exp}")
-    for token in tokens:
-        print(token[1])
-
-    print()
-
-
 if __name__ == '__main__':
-    expression = "(2 ^ 3)!"
+    expression = "sinh(sin(3*3))"
 
     parser = TokenParser()
     parser.set_expression(expression)
     tokens = parser.parse_tokens()
 
-    print(expression)
-    for token in tokens:
-        print(token)
-
-
-    # parse("(5 + 1)!")
-    # parse("(5 +1)!")
-    #
-    # exit(0)
+    # print(expression)
+    # for token in tokens:
+    #     print(token)
 
     algorithm = ShuntingYard()
     algorithm.specify_tokens_list(tokens)
