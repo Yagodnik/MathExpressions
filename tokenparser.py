@@ -138,15 +138,13 @@ class TokenParser:
                 continue
             elif self.parentheses.__contains__(self.symbol):
                 self.parse_parentheses()
-                self.last_operator = False
+                # self.last_operator = False
                 continue
             elif self.special_symbols.__contains__(self.symbol):
                 self.parse_special_symbol()
-                self.last_operator = False
                 continue
             else:
                 self.parse_function()
-                self.last_operator = False
                 continue
 
             self.index += 1

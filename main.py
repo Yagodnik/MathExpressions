@@ -3,7 +3,7 @@ from rpn import *
 
 
 if __name__ == '__main__':
-    expression = "3 - -4"
+    expression = "-4 - 4"
 
     parser = TokenParser()
     parser.set_expression(expression)
