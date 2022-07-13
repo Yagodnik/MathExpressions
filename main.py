@@ -2,20 +2,36 @@ from shuntingyard import *
 from rpn import *
 
 
-# TODO: fix bug (5 + 1)! and (5 +1)! different result!
-# TODO: fix bug (2 ^ 3)! and (2^3)!
 # TODO: fix bug with mismatched brackets checking
 
+
+def parse(exp):
+    parser = TokenParser()
+    parser.set_expression(exp)
+    tokens = parser.parse_tokens()
+
+    print(f"Parsing {exp}")
+    for token in tokens:
+        print(token[1])
+
+    print()
+
+
 if __name__ == '__main__':
-    expression = "cbrt(27.5)"
+    expression = "(2 ^ 3)!"
 
     parser = TokenParser()
     parser.set_expression(expression)
     tokens = parser.parse_tokens()
 
-    # for token in tokens:
-    #     print(token)
+    print(expression)
+    for token in tokens:
+        print(token)
 
+
+    # parse("(5 + 1)!")
+    # parse("(5 +1)!")
+    #
     # exit(0)
 
     algorithm = ShuntingYard()

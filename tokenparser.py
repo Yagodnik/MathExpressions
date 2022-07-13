@@ -120,7 +120,7 @@ class TokenParser:
                 self.last_operator = False
                 continue
             elif contains_operator(self.operators, self.symbol):
-                if not self.last_operator and not isinstance(self.symbol, Operator):
+                if not self.last_operator and not isinstance(symbol_to_operator(self.symbol), Operator):
                     if self.index < self.expression_length:
                         next_symbol = self.expression[self.index + 1]
 

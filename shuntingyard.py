@@ -70,6 +70,10 @@ class ShuntingYard:
             self.output_queue.append(self.operator_stack[0])
             self.operator_stack.pop(0)
 
+        if len(self.output_queue) == 0:
+            print("Empty output queue!")
+            exit(0)
+
     def print_output_queue(self):
         for item in self.output_queue:
             print(item, end=" ")
