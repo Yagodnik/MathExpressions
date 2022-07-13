@@ -3,7 +3,7 @@ from rpn import *
 
 
 if __name__ == '__main__':
-    expression = "sinh(sin(3*3))"
+    expression = "3 - -4"
 
     parser = TokenParser()
     parser.set_expression(expression)

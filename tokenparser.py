@@ -17,7 +17,7 @@ class TokenParser:
         self.parentheses = ["(", ")", "|", "|"]
         self.functions = functions
         self.special_symbols = [","]
-        self.last_operator = False
+        self.last_operator = True
 
         self.token = None
         self.expression = ""
@@ -115,12 +115,16 @@ class TokenParser:
 
             self.symbol = self.expression[self.index]
 
+            if self.symbol == " ":
+                self.index += 1
+                continue
+
             if self.nums.__contains__(self.symbol):
                 self.parse_number()
                 self.last_operator = False
                 continue
             elif contains_operator(self.operators, self.symbol):
-                if not self.last_operator and not isinstance(symbol_to_operator(self.symbol), Operator):
+                if self.last_operator:
                     if self.index < self.expression_length:
                         next_symbol = self.expression[self.index + 1]
 
@@ -130,7 +134,7 @@ class TokenParser:
                             continue
 
                 self.parse_operator()
-                self.last_operator = False
+                self.last_operator = True
                 continue
             elif self.parentheses.__contains__(self.symbol):
                 self.parse_parentheses()
